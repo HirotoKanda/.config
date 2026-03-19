@@ -1,0 +1,5 @@
+require("config.keybind")
+require("config.lazy")
+-- require("config.lsp")
+require("config.editor")
+require("config.tree-sitter")

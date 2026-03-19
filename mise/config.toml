@@ -1,0 +1,15 @@
+
+[tools]
+lua = "latest"
+node = "latest"
+python = "latest"
+rust = "latest"
+uv = "latest"
+
+[alias]
+lua = "asdf:https://github.com/mise-plugins/mise-lua"
+
+[settings]
+python.uv_venv_auto = true
+experimental = true
+idiomatic_version_file_enable_tools = ["python"]
