@@ -8,6 +8,9 @@ require("mason-lspconfig").setup({
 		"tailwindcss",
 		"volar",
 		"vtsls",
+    "fortls",
+    "texlab",
+    "pyright"
 	},
 })
 
