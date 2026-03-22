@@ -2,9 +2,9 @@ export LANG=ja_JP.UTF-8
 
 autoload -Uz compinit && compinit
 
-export PATH="$PATH:/Users/jai/.local/bin"
 eval "$(mise activate zsh)"
 eval "$(starship init zsh)"
+
 
 setopt interactivecomments
 setopt auto_cd

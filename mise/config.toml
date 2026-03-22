@@ -6,7 +6,7 @@ python = "latest"
 rust = "latest"
 uv = "latest"
 
-[alias]
+[tool_alias]
 lua = "asdf:https://github.com/mise-plugins/mise-lua"
 
 [settings]
