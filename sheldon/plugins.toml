@@ -27,7 +27,7 @@ apply = ['source']
 inline = 'autoload -Uz compinit && zsh-defer compinit'
 
 [plugins.colors]
-inline = 'autoload -Uz colors# && zsh-defer colors'
+inline = 'autoload -Uz colors && zsh-defer colors'
 
 [plugins.zsh-autosuggestions]
 github = 'zsh-users/zsh-autosuggestions'
@@ -48,4 +48,3 @@ use = ['*.zsh']
 [plugins.dotfiles-defer]
 local = '~/.config/zsh/defer'
 use = ['*.zsh']
-
