@@ -5,6 +5,16 @@ return {
   -- load the plugin when `ft` is fortran
   ft = { "fortran" },
   opts = {
-    -- all your configuration options go here
+    server_opts = {
+      args = {
+        "--notify_init",
+        "--lowercase_intrinsics",
+        "--hover_signature",
+        "--hover_language=fortran",
+        "--use_signature_help",
+        "--enable_code_actions",
+        "--disable_autoupdate",
+      },
+    },
   }
 }

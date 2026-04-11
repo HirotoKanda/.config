@@ -1,5 +1,9 @@
-require("config.keybind")
+--AstroNvim
+-- require("config.plugins")
+
+-- General
 require("config.lazy")
--- require("config.lsp")
 require("config.editor")
-require("config.tree-sitter")
+
+
+require("config.keybind")

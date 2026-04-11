@@ -1,0 +1,2 @@
+WRN 2026-04-12T01:46:40.828 ?.57373    server_start:199: Failed to start server: operation not permitted: /var/folders/rs/fyjnhwnx4qx8_fjv65rzwtzr0000gn/T/nvim.jai/1RnCMD/nvim.57373.0
+WRN 2026-04-12T02:03:50.354 ?.68449    server_start:199: Failed to start server: operation not permitted: /var/folders/rs/fyjnhwnx4qx8_fjv65rzwtzr0000gn/T/nvim.jai/poeO8c/nvim.68449.0

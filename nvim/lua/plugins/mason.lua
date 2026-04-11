@@ -13,6 +13,11 @@ return {
       { "neovim/nvim-lspconfig" },
     },
     event = { "BufReadPre", "BufNewFile" },
+    opts = function(_, opts)
+      opts = opts or {}
+      opts.ensure_installed = require("config.lsp").ensure_installed
+      return opts
+    end,
     config = true,
     keys = {
       { "<S-space>", "<cmd>lua vim.lsp.completion.get()  <CR>", mode = "i" },
@@ -22,4 +27,3 @@ return {
     },
   },
 }
-
