@@ -82,11 +82,19 @@ if command -v stow >/dev/null 2>&1 && [ -d "$DOTFILES/stow" ]; then
   done
 fi
 
-# ---- 4c. macOS keyboard shortcuts -----------------------------------------
-if [ -f "$DOTFILES/macos/symbolichotkeys.plist" ]; then
-  log "Importing macOS keyboard shortcuts…"
-  defaults import com.apple.symbolichotkeys "$DOTFILES/macos/symbolichotkeys.plist" || warn "shortcuts import failed"
-  # apply without a logout
+# ---- 4c. macOS input settings (keyboard shortcuts + trackpad) -------------
+if [ -d "$DOTFILES/macos" ]; then
+  # Each com.apple.*.plist imports into its matching defaults domain
+  # (keyboard shortcuts, built-in trackpad, Magic Trackpad).
+  for plist in "$DOTFILES"/macos/com.apple.*.plist; do
+    [ -f "$plist" ] || continue
+    domain="$(basename "$plist" .plist)"
+    log "Importing $domain…"
+    defaults import "$domain" "$plist" || warn "$domain import failed"
+  done
+  # Trackpad keys that live in the shared NSGlobalDomain (applied per-key).
+  [ -f "$DOTFILES/macos/globaldomain-trackpad.sh" ] && bash "$DOTFILES/macos/globaldomain-trackpad.sh"
+  # Best-effort apply without a full logout (trackpad may need re-login).
   /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u 2>/dev/null || true
 fi
 
@@ -114,6 +122,7 @@ These hold secrets, so they are NOT in the repo — set them up manually:
 
 Then finish tool setup:
   • yabai           : yabai --start-service   (scripting addition needs a sudoers entry — see the yabai wiki)
+  • keyboard remaps : redo modifier remaps (e.g. Caps Lock→Control) in System Settings ▸ Keyboard — they're per-device, not portable
 
 Open a new terminal to load your shell.
 EOF
