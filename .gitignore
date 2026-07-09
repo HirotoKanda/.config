@@ -1,0 +1,41 @@
+# ============================================================
+#  ~/.config  —  dotfiles ignore rules
+# ============================================================
+
+# ---- macOS noise ----
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+*.swp
+
+# ---- Secrets / credentials (NEVER commit) ----
+# OAuth tokens & local secrets that some tools drop into ~/.config
+gh/hosts.yml
+github-copilot/apps.json
+github-copilot/hosts.json
+raycast/config.json
+# generic credential patterns (defensive)
+**/.env
+**/.env.*
+**/*.pem
+**/*.key
+**/id_rsa*
+**/id_ed25519*
+**/.netrc
+**/.credentials.json
+**/*.token
+
+# ---- Raycast: extension code is reinstallable build output (churn) ----
+raycast/extensions/
+
+# ---- Claude Code ----
+# Only the curated stow/claude package is tracked. Block state/secret files
+# in case they ever land under the tracked package path.
+stow/claude/.claude/.credentials.json
+stow/claude/.claude/history.jsonl
+stow/claude/.claude/*.log
+stow/claude/.claude/sessions/
+stow/claude/.claude/projects/
+stow/claude/.claude/todos/
+stow/claude/.claude/shell-snapshots/

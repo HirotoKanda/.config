@@ -1,0 +1,14 @@
+#!/bin/bash
+# SessionStart hook: remind agent that codebase-memory-mcp tools exist.
+# Installed by codebase-memory-mcp; slimmed 2026-07-04 (original in
+# ~/.claude/backups/pre-optimize-2026-07-04/).
+# Only fires inside a git repo (proxy for "code project") — in docs,
+# config, or scratch directories the reminder is pure context tax.
+git -C "${CLAUDE_PROJECT_DIR:-$PWD}" rev-parse --is-inside-work-tree >/dev/null 2>&1 || exit 0
+cat << 'REMINDER'
+Code discovery: prefer codebase-memory-mcp tools for structural code queries —
+search_graph (find symbols), trace_path (call chains), get_code_snippet,
+get_architecture, search_code (graph-augmented grep). Run index_repository
+first if the project isn't indexed. Grep/Glob/Read remain fine for text,
+configs, and non-code files; always Read a file before editing it.
+REMINDER
