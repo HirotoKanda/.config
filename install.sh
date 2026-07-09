@@ -63,6 +63,14 @@ if command -v stow >/dev/null 2>&1 && [ -d "$DOTFILES/stow" ]; then
   done
 fi
 
+# ---- 4c. macOS keyboard shortcuts -----------------------------------------
+if [ -f "$DOTFILES/macos/symbolichotkeys.plist" ]; then
+  log "Importing macOS keyboard shortcuts…"
+  defaults import com.apple.symbolichotkeys "$DOTFILES/macos/symbolichotkeys.plist" || warn "shortcuts import failed"
+  # apply without a logout
+  /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u 2>/dev/null || true
+fi
+
 # ---- 5. Runtimes & shell plugins ------------------------------------------
 command -v mise    >/dev/null 2>&1 && { log "mise install…"; mise install -y || warn "mise install skipped"; }
 command -v sheldon >/dev/null 2>&1 && { log "sheldon lock…"; sheldon lock    || warn "sheldon lock skipped"; }
