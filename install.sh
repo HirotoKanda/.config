@@ -7,8 +7,8 @@
 #   ~/.config/install.sh
 #
 # Idempotent: safe to re-run. Installs Homebrew + packages, symlinks the
-# $HOME-targeted configs (Claude Code via stow; zsh files at the repo root),
-# and sets up the shell. XDG-native tools (nvim, sheldon, kitty, wezterm,
+# $HOME-targeted configs (Claude Code, zsh, yabai via stow), and sets up the
+# shell. XDG-native tools (nvim, sheldon, kitty, wezterm,
 # ghostty, starship, mise, gh …) are read from ~/.config directly and need
 # no linking.
 
@@ -19,6 +19,15 @@ BREW_PREFIX="/opt/homebrew"
 
 log()  { printf '\n\033[1;34m==>\033[0m \033[1m%s\033[0m\n' "$*"; }
 warn() { printf '\033[1;33m[!]\033[0m %s\n' "$*"; }
+
+# ---- Preflight: never run as root -----------------------------------------
+# Homebrew refuses to install as root, and stow/chsh must run as you. This
+# script escalates with sudo only where a step needs it (and asks then).
+if [ "$(id -u)" = 0 ]; then
+  echo "Run install.sh as your normal user, NOT with sudo / as root —" >&2
+  echo "it escalates with sudo only when a step needs it." >&2
+  exit 1
+fi
 
 # ---- 0. Sanity: Apple Silicon macOS ---------------------------------------
 if [ "$(uname -s)" != "Darwin" ] || [ "$(uname -m)" != "arm64" ]; then
@@ -33,6 +42,16 @@ if ! xcode-select -p >/dev/null 2>&1; then
   echo "Finish the CLT installer dialog, then re-run this script." >&2
   exit 0
 fi
+
+# ---- 1b. Pre-authenticate sudo --------------------------------------------
+# Homebrew's non-interactive install (and chsh / /etc/shells later) need sudo
+# credentials already cached. Prime them once, then keep the timestamp fresh
+# in the background so long installs don't re-prompt.
+if ! sudo -n true 2>/dev/null; then
+  log "Some steps need admin rights — enter your password once…"
+  sudo -v || { echo "This account must be an Administrator (able to sudo)." >&2; exit 1; }
+fi
+( while kill -0 "$$" 2>/dev/null; do sudo -n true 2>/dev/null; sleep 60; done ) &
 
 # ---- 2. Homebrew (Apple Silicon -> /opt/homebrew) -------------------------
 if ! command -v brew >/dev/null 2>&1; then
