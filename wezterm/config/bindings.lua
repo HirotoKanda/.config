@@ -251,6 +251,55 @@ local mouse_bindings = {
       mods = 'CTRL',
       action = act.OpenLinkAtMouseCursor,
    },
+
+   -- Bypass mouse reporting BY DEFAULT: plain left-drag selects text even when an
+   -- app (Claude Code, vim, tmux, …) has mouse reporting on — no Shift needed.
+   -- Selection auto-copies to the clipboard on release, so Cmd+C is optional.
+   -- (Trade-off: apps no longer receive plain left-clicks. Hold no modifier to
+   --  select/copy; remove this block to restore in-app left-click/mouse use.)
+   {
+      event = { Down = { streak = 1, button = 'Left' } },
+      mods = 'NONE',
+      action = act.SelectTextAtMouseCursor('Cell'),
+      mouse_reporting = true,
+   },
+   {
+      event = { Drag = { streak = 1, button = 'Left' } },
+      mods = 'NONE',
+      action = act.ExtendSelectionToMouseCursor('Cell'),
+      mouse_reporting = true,
+   },
+   {
+      event = { Up = { streak = 1, button = 'Left' } },
+      mods = 'NONE',
+      action = act.CompleteSelection('ClipboardAndPrimarySelection'),
+      mouse_reporting = true,
+   },
+   -- double-click = select word, triple-click = select line (also auto-copy)
+   {
+      event = { Down = { streak = 2, button = 'Left' } },
+      mods = 'NONE',
+      action = act.SelectTextAtMouseCursor('Word'),
+      mouse_reporting = true,
+   },
+   {
+      event = { Up = { streak = 2, button = 'Left' } },
+      mods = 'NONE',
+      action = act.CompleteSelection('ClipboardAndPrimarySelection'),
+      mouse_reporting = true,
+   },
+   {
+      event = { Down = { streak = 3, button = 'Left' } },
+      mods = 'NONE',
+      action = act.SelectTextAtMouseCursor('Line'),
+      mouse_reporting = true,
+   },
+   {
+      event = { Up = { streak = 3, button = 'Left' } },
+      mods = 'NONE',
+      action = act.CompleteSelection('ClipboardAndPrimarySelection'),
+      mouse_reporting = true,
+   },
 }
 
 return {

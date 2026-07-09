@@ -1,8 +1,9 @@
 # terminal color
 # LSCOLORS=exfxcxdxbxegedabagacad
 alias ls='lsd -l'
-alias tree='lsd -l --tree'
+alias lst='lsd -l --tree'
 alias vim='nvim'
+alias wsh='wezterm ssh'
 
 
 function custom_cd()
