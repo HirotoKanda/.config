@@ -2,6 +2,7 @@ tap "asmvik/formulae", "https://github.com/asmvik/homebrew-formulae.git"
 tap "fortran-lang/fortran"
 tap "tejas-raskar/noted.md"
 tap "tsung-ju/iguanatexmac", trusted: true
+tap "koekeishiya/formulae"
 # Cross-platform make
 brew "cmake"
 # DjVu viewer
@@ -66,6 +67,8 @@ brew "unar"
 brew "uv"
 # Command-line interface for Vercel
 brew "vercel-cli"
+# Tiling window manager based on binary space partitioning
+brew "yabai"
 # UNIX shell (command interpreter)
 brew "zsh"
 # Application uninstaller

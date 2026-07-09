@@ -48,8 +48,10 @@ if [ -f "$DOTFILES/Brewfile" ]; then
   brew bundle --file="$DOTFILES/Brewfile" || warn "brew bundle reported errors; continuing."
 fi
 
-# ---- 4. Symlink $HOME-targeted configs ------------------------------------
-# 4a. Claude Code hardcodes ~/.claude (ignores XDG) — stow it in.
+# ---- 4. Symlink $HOME-targeted (non-XDG) configs via stow -----------------
+# Tools that ignore XDG and read straight from $HOME each get a package under
+# stow/: Claude Code (~/.claude), zsh (~/.zshrc, .zshenv, .zprofile, .zlogin),
+# yabai (~/.yabairc). XDG-native tools (nvim, sheldon, git, …) need no linking.
 if command -v stow >/dev/null 2>&1 && [ -d "$DOTFILES/stow" ]; then
   log "Linking stow packages into \$HOME…"
   for pkg in "$DOTFILES"/stow/*/; do
@@ -60,15 +62,6 @@ if command -v stow >/dev/null 2>&1 && [ -d "$DOTFILES/stow" ]; then
       || warn "stow '$name' hit a conflict — resolve, then: stow -d \"$DOTFILES/stow\" -t \"\$HOME\" $name"
   done
 fi
-
-# 4b. zsh startup files live at the repo root; zsh reads them from $HOME.
-log "Linking zsh startup files…"
-for f in .zshrc .zshenv .zprofile; do
-  if [ -e "$DOTFILES/$f" ]; then
-    ln -sfn "$DOTFILES/$f" "$HOME/$f"
-    echo "  ~/$f -> $DOTFILES/$f"
-  fi
-done
 
 # ---- 5. Runtimes & shell plugins ------------------------------------------
 command -v mise    >/dev/null 2>&1 && { log "mise install…"; mise install -y || warn "mise install skipped"; }
@@ -91,6 +84,9 @@ These hold secrets, so they are NOT in the repo — set them up manually:
   • GitHub Copilot  : re-sign-in from your editor
   • Claude Code     : run `claude` (re-runs OAuth on first launch)
   • SSH keys        : restore ~/.ssh/kanda_key from your backup / keychain
+
+Then finish tool setup:
+  • yabai           : yabai --start-service   (scripting addition needs a sudoers entry — see the yabai wiki)
 
 Open a new terminal to load your shell.
 EOF
