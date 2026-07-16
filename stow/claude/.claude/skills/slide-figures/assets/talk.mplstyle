@@ -1,0 +1,41 @@
+# matplotlib style for figures shown on SLIDES / in talks.
+# Usage:  plt.style.use("<path-to-skill>/assets/talk.mplstyle")
+# Big fonts, thick lines, Okabe-Ito colorblind-safe cycle, embedded fonts.
+
+# --- fonts: sans-serif, large (slide floor is 18pt) ---
+font.family:        sans-serif
+font.sans-serif:    DejaVu Sans, Arial, Helvetica, sans-serif
+font.size:          18
+axes.titlesize:     24
+axes.labelsize:     20
+xtick.labelsize:    18
+ytick.labelsize:    18
+legend.fontsize:    18
+figure.titlesize:   24
+
+# --- lines & markers: thick enough to survive projection ---
+lines.linewidth:    3.0
+lines.markersize:   10
+patch.linewidth:    2.0
+axes.linewidth:     1.5
+
+# --- declutter: no top/right spines, light grid off by default ---
+axes.spines.top:    False
+axes.spines.right:  False
+axes.grid:          False
+grid.color:         cccccc
+grid.linewidth:     0.8
+xtick.direction:    out
+ytick.direction:    out
+
+# --- Okabe-Ito colorblind-safe cycle (Blue, Vermillion, Green, Purple, Orange, Sky, Yellow, Black) ---
+axes.prop_cycle:    cycler('color', ['0072B2','D55E00','009E73','CC79A7','E69F00','56B4E9','F0E442','000000'])
+
+# --- figure size / export: 16:9-friendly, vector-safe, fonts embedded ---
+figure.figsize:     10, 5.6
+figure.dpi:         150
+savefig.dpi:        150
+savefig.bbox:       tight
+pdf.fonttype:       42
+ps.fonttype:        42
+svg.fonttype:       none
