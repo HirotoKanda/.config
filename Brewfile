@@ -68,7 +68,7 @@ brew "uv"
 # Command-line interface for Vercel
 brew "vercel-cli"
 # Tiling window manager based on binary space partitioning
-brew "yabai"
+brew "koekeishiya/formulae/yabai"
 # UNIX shell (command interpreter)
 brew "zsh"
 # Application uninstaller
