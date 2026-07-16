@@ -89,7 +89,7 @@ if [ -d "$DOTFILES/macos" ]; then
   for plist in "$DOTFILES"/macos/com.apple.*.plist; do
     [ -f "$plist" ] || continue
     domain="$(basename "$plist" .plist)"
-    log "Importing $domain…"
+    log "Importing ${domain}…"
     defaults import "$domain" "$plist" || warn "$domain import failed"
   done
   # Trackpad keys that live in the shared NSGlobalDomain (applied per-key).
