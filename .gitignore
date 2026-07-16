@@ -41,8 +41,7 @@ stow/claude/.claude/todos/
 stow/claude/.claude/shell-snapshots/
 
 # ---- Tool runtime state / logs (not config; may hold session tokens) ----
-herdr/session.json
-herdr/*.log
+herdr/
 vercel-plugin/active-session.json
 vercel-plugin/*-stamp
 
