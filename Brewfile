@@ -2,7 +2,7 @@ tap "asmvik/formulae", "https://github.com/asmvik/homebrew-formulae.git"
 tap "fortran-lang/fortran"
 tap "tejas-raskar/noted.md"
 tap "tsung-ju/iguanatexmac", trusted: true
-tap "koekeishiya/formulae"
+tap "koekeishiya/formulae", trusted: true
 # Cross-platform make
 brew "cmake"
 # DjVu viewer
